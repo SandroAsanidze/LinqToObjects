@@ -215,15 +215,8 @@ namespace Linq
 
             int[] attemptedWithdrawals = { 20, 10, 40, 50, 10, 70, 30 };
 
-            double currentBalance = startBalance;
-
-            foreach (var withdrawal in attemptedWithdrawals)
-            {
-                if (currentBalance - withdrawal >= 0)
-                {
-                    currentBalance -= withdrawal;
-                }
-            }
+            double currentBalance = attemptedWithdrawals.Aggregate(startBalance, (balance, withdrawal) =>
+                balance - withdrawal >= 0 ? balance - withdrawal : balance);
 
             return currentBalance;
         }
